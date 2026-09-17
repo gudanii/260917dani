@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>매일 루틴</title>
+<link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="app">
+    <header class="app-header">
+      <h1>매일 루틴</h1>
+      <p class="subtitle">요일과 목표 횟수를 정하고 완료를 체크하세요</p>
+    </header>
+
+    <section class="settings">
+      <button id="settings-toggle" type="button">⚙️ AI 설정 (Gemini API 키)</button>
+      <div id="settings-panel" class="settings-panel hidden">
+        <div class="field">
+          <label for="api-key-input">Gemini API 키</label>
+          <input id="api-key-input" type="password" placeholder="AIza..." autocomplete="off" />
+        </div>
+        <div class="field">
+          <label for="model-input">모델명</label>
+          <input id="model-input" type="text" placeholder="gemini-3.5-flash-lite" />
+        </div>
+        <button id="settings-save-btn" type="button">저장</button>
+        <p class="settings-note">
+          API 키는 이 브라우저의 localStorage에만 저장되고, 루틴을 세분화할 때 Google Gemini API로 직접 전송됩니다(서버 경유 없음).
+          키는 <a href="https://aistudio.google.com/apikey" target="_blank" rel="noopener">Google AI Studio</a>에서 발급받을 수 있습니다.
+          공용 기기에서는 사용 후 키를 지워주세요.
+        </p>
+      </div>
+    </section>
+
+    <section class="add-form">
+      <input id="routine-name" type="text" placeholder="루틴 이름 (예: 물 마시기)" maxlength="40" />
+
+      <div class="field">
+        <label>요일</label>
+        <div class="day-checks" id="day-checks">
+          <label><input type="checkbox" value="0" /> 월</label>
+          <label><input type="checkbox" value="1" /> 화</label>
+          <label><input type="checkbox" value="2" /> 수</label>
+          <label><input type="checkbox" value="3" /> 목</label>
+          <label><input type="checkbox" value="4" /> 금</label>
+          <label><input type="checkbox" value="5" /> 토</label>
+          <label><input type="checkbox" value="6" /> 일</label>
+        </div>
+      </div>
+
+      <div class="field">
+        <label for="routine-count">목표 횟수 (하루 기준)</label>
+        <input id="routine-count" type="number" min="1" max="20" value="1" />
+      </div>
+
+      <button id="add-btn" type="button">루틴 추가</button>
+    </section>
+
+    <section class="week-nav">
+      <button id="prev-week" type="button" aria-label="이전 주">◀</button>
+      <span id="week-label"></span>
+      <button id="next-week" type="button" aria-label="다음 주">▶</button>
+    </section>
+
+    <section id="routine-list" class="routine-list"></section>
+
+    <template id="routine-template">
+      <article class="routine-card">
+        <div class="routine-card-header">
+          <h2 class="routine-name"></h2>
+          <div class="header-actions">
+            <button class="steps-btn" type="button" title="AI로 세분화 / 단계 편집">✨ 세분화</button>
+            <button class="delete-btn" type="button" title="삭제">✕</button>
+          </div>
+        </div>
+        <div class="day-grid"></div>
+        <div class="detail-panel hidden"></div>
+      </article>
+    </template>
+
+    <dialog id="step-dialog">
+      <h3 id="step-dialog-title">세부 단계 편집</h3>
+      <p class="dialog-hint">한 줄에 한 단계씩 입력하세요. 비워두면 기존처럼 횟수만 체크합니다.</p>
+      <textarea id="step-textarea" rows="6" placeholder="예: 물 한 컵 준비하기&#10;천천히 마시기"></textarea>
+      <div class="dialog-actions">
+        <button id="ai-generate-btn" type="button">✨ Gemini로 만들기</button>
+        <span id="ai-status" class="ai-status"></span>
+      </div>
+      <div class="dialog-actions dialog-actions-end">
+        <button id="step-clear-btn" type="button" class="ghost-btn">세분화 해제</button>
+        <button id="step-cancel-btn" type="button" class="ghost-btn">취소</button>
+        <button id="step-save-btn" type="button">저장</button>
+      </div>
+    </dialog>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
