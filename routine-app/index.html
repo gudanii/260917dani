@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>매일 루틴</title>
+<link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="app">
+    <header class="app-header">
+      <h1>매일 루틴</h1>
+      <p class="subtitle">요일과 목표 횟수를 정하고 완료를 체크하세요</p>
+    </header>
+
+    <section class="add-form">
+      <input id="routine-name" type="text" placeholder="루틴 이름 (예: 물 마시기)" maxlength="40" />
+
+      <div class="field">
+        <label>요일</label>
+        <div class="day-checks" id="day-checks">
+          <label><input type="checkbox" value="0" /> 월</label>
+          <label><input type="checkbox" value="1" /> 화</label>
+          <label><input type="checkbox" value="2" /> 수</label>
+          <label><input type="checkbox" value="3" /> 목</label>
+          <label><input type="checkbox" value="4" /> 금</label>
+          <label><input type="checkbox" value="5" /> 토</label>
+          <label><input type="checkbox" value="6" /> 일</label>
+        </div>
+      </div>
+
+      <div class="field">
+        <label for="routine-count">목표 횟수 (하루 기준)</label>
+        <input id="routine-count" type="number" min="1" max="20" value="1" />
+      </div>
+
+      <button id="add-btn" type="button">루틴 추가</button>
+    </section>
+
+    <section class="week-nav">
+      <button id="prev-week" type="button" aria-label="이전 주">◀</button>
+      <span id="week-label"></span>
+      <button id="next-week" type="button" aria-label="다음 주">▶</button>
+    </section>
+
+    <section id="routine-list" class="routine-list"></section>
+
+    <template id="routine-template">
+      <article class="routine-card">
+        <div class="routine-card-header">
+          <h2 class="routine-name"></h2>
+          <button class="delete-btn" type="button" title="삭제">✕</button>
+        </div>
+        <div class="day-grid"></div>
+      </article>
+    </template>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>

@@ -2,6 +2,10 @@
 
 코딩 AI(antigravity, Cursor, Claude Code 등)에게 제공할 고품질 프롬프트를 작성하는 전문가 팀 프롬프트입니다.
 
+## 📦 프로젝트
+
+- [routine-app](./routine-app) — 요일별/횟수별로 체크하는 매일 루틴 관리 웹앱
+
 ---
 
 ## 🎯 팀 구성 및 역할
